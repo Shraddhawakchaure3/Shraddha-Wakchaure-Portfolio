@@ -1,104 +1,165 @@
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Code2, ExternalLink, ChevronDown } from 'lucide-react';
+import {
+  Github,
+  Linkedin,
+  Code2,
+  ExternalLink,
+  ChevronDown,
+} from 'lucide-react';
+
 import { personalInfo } from '../data/portfolio';
 import { useTypewriter } from '../hooks/useTypewriter';
-import AnimatedText from './ui/AnimatedText';
 import MagneticButton from './ui/MagneticButton';
 
 export default function Hero() {
-  const { displayText } = useTypewriter(personalInfo.roles, 80, 50, 2000);
+  const { displayText } = useTypewriter(
+    personalInfo.roles,
+    80,
+    50,
+    2000
+  );
 
   const scrollTo = (selector) => {
-    document.querySelector(selector)?.scrollIntoView({ behavior: 'smooth' });
+    document.querySelector(selector)?.scrollIntoView({
+      behavior: 'smooth',
+    });
   };
 
   const socialLinks = [
-    { icon: Github, href: personalInfo.social.github, label: 'GitHub' },
-    { icon: Linkedin, href: personalInfo.social.linkedin, label: 'LinkedIn' },
-    { icon: Code2, href: personalInfo.social.leetcode, label: 'LeetCode' },
-    { icon: ExternalLink, href: personalInfo.social.tryhackme, label: 'TryHackMe' },
+    {
+      icon: Github,
+      href: personalInfo.social.github,
+      label: 'GitHub',
+    },
+    {
+      icon: Linkedin,
+      href: personalInfo.social.linkedin,
+      label: 'LinkedIn',
+    },
+    {
+      icon: Code2,
+      href: personalInfo.social.leetcode,
+      label: 'LeetCode',
+    },
+    {
+      icon: ExternalLink,
+      href: personalInfo.social.tryhackme,
+      label: 'TryHackMe',
+    },
   ];
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
-      {/* Background layers */}
+    <section
+      id="home"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+    >
+      {/* Background */}
       <div className="absolute inset-0 dot-grid pointer-events-none z-0" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_40%,rgba(79,70,229,0.1)_0%,transparent_70%)] pointer-events-none z-0" />
+
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(79,70,229,0.18)_0%,transparent_70%)] pointer-events-none z-0" />
 
       {/* Content */}
-      <div className="relative z-10 text-center max-w-4xl mx-auto px-6 flex flex-col items-center">
-        {/* Eyebrow */}
+      <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
+        {/* Location */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-8"
         >
-          <span className="text-xs font-mono tracking-[0.25em] uppercase text-indigo-400">
-            Software Engineer · {personalInfo.location}
+          <span className="text-xs md:text-sm font-mono tracking-[0.35em] uppercase text-indigo-400">
+            Maharashtra, India
           </span>
         </motion.div>
 
-        {/* Main Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
+        {/* Name */}
+        <motion.h1
+          initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-6xl md:text-8xl lg:text-9xl font-bold text-white tracking-tight leading-[0.9]"
         >
-          <AnimatedText
-            text="Building Software that Matters."
-            className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-none tracking-tight mt-6"
-            delay={0.2}
-          />
-        </motion.div>
+          Shraddha
+          <br />
+          Wakchaure
+        </motion.h1>
 
-        {/* Typewriter */}
+        {/* Typewriter Roles */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-lg md:text-2xl text-slate-400 font-mono mt-8"
+          className="mt-8 text-xl md:text-3xl font-mono text-indigo-300 h-12"
         >
           {displayText}
-          <span className="cursor" />
+          <span className="animate-pulse">|</span>
         </motion.div>
 
-        {/* Tagline */}
+        {/* Description */}
         <motion.p
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-sm text-slate-500 tracking-widest uppercase mt-4"
+          className="max-w-3xl mx-auto mt-6 text-slate-400 text-base md:text-lg leading-relaxed"
         >
-          {personalInfo.tagline}
+          Building scalable software solutions across Full Stack
+          Development, AI-powered applications, Cybersecurity,
+          and Blockchain systems. Passionate about creating
+          impactful products that solve real-world business
+          and technology challenges.
         </motion.p>
 
-        {/* CTA Buttons */}
+        {/* Quick Skills */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="flex gap-4 mt-10 flex-wrap justify-center"
+          className="mt-8 flex flex-wrap justify-center gap-3"
+        >
+          {[
+            'Full Stack',
+            'AI Systems',
+            'Cybersecurity',
+            'Blockchain',
+            'Backend Development',
+          ].map((item) => (
+            <span
+              key={item}
+              className="px-3 py-1 rounded-full border border-white/10 bg-white/5 text-slate-300 text-sm"
+            >
+              {item}
+            </span>
+          ))}
+        </motion.div>
+
+        {/* Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="flex flex-wrap justify-center gap-4 mt-10"
         >
           <MagneticButton
             onClick={() => scrollTo('#projects')}
-            className="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-3 rounded-lg text-sm font-medium transition-colors cursor-pointer"
+            className="bg-indigo-600 hover:bg-indigo-500 text-white px-7 py-3 rounded-xl font-medium transition-all"
           >
             View My Work
           </MagneticButton>
+
           <MagneticButton
             onClick={() => scrollTo('#contact')}
-            className="border border-white/20 hover:border-white/40 text-white px-6 py-3 rounded-lg text-sm transition-colors cursor-pointer"
+            className="border border-white/15 hover:border-white/30 text-white px-7 py-3 rounded-xl transition-all"
           >
-            Get in Touch
+            Get In Touch
           </MagneticButton>
         </motion.div>
 
-        {/* Social Icons */}
+        {/* Social Links */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="flex gap-6 mt-8 items-center"
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="flex justify-center gap-6 mt-10"
         >
           {socialLinks.map((social) => (
             <a
@@ -107,7 +168,7 @@ export default function Hero() {
               target="_blank"
               rel="noreferrer"
               title={social.label}
-              className="text-slate-500 hover:text-white transition"
+              className="text-slate-500 hover:text-white transition-colors duration-300"
             >
               <social.icon className="w-5 h-5" />
             </a>
@@ -116,9 +177,14 @@ export default function Hero() {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8">
-        <ChevronDown className="w-5 h-5 text-slate-600 animate-bounce" />
-      </div>
-    </div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+      >
+        <ChevronDown className="w-5 h-5 text-slate-500 animate-bounce" />
+      </motion.div>
+    </section>
   );
 }
