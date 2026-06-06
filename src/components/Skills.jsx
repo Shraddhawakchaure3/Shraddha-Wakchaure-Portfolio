@@ -21,7 +21,11 @@ export default function Skills() {
   return (
     <div className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
-        <SectionHeading eyebrow="Technical Skills" title="Tools of the Trade" />
+        <SectionHeading
+          eyebrow="Technical Skills"
+          title="Technical Skills"
+          subtitle="Technologies and tools I work with."
+        />
 
         <motion.div
           variants={container}
@@ -34,10 +38,10 @@ export default function Skills() {
               const Icon = iconMap[category.icon];
               return (
                 <motion.div key={category.name} variants={item}>
-                  <GlassCard hover className="border-l-2 border-indigo-500/40 h-full">
+                  <GlassCard hover className="border-l-2 border-indigo-500/40 hover:border-l-indigo-400 h-full group">
                     {/* Header */}
                     <div className="flex items-center gap-2.5 mb-4">
-                      {Icon && <Icon className="w-4 h-4 text-indigo-400" />}
+                      {Icon && <Icon className="w-4 h-4 text-indigo-400 group-hover:text-indigo-300 group-hover:scale-110 transition-all duration-300" />}
                       <span className="text-white font-semibold text-sm">{category.name}</span>
                     </div>
 

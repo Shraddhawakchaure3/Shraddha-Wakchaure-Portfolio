@@ -8,8 +8,8 @@ const navLinks = [
   { label: 'Home',         href: '#home' },
   { label: 'About',        href: '#about' },
   { label: 'Experience',   href: '#experience' },
-  { label: 'Skills',       href: '#skills' },
   { label: 'Projects',     href: '#projects' },
+  { label: 'Skills',       href: '#skills' },
   { label: 'Achievements', href: '#achievements' },
   { label: 'Contact',      href: '#contact' },
 ];
@@ -56,7 +56,10 @@ export default function Navbar() {
 
         {/* Desktop Resume */}
         <a
-          href="#"
+          href={personalInfo.resumeUrl}
+          download="Shraddha_Wakchaure_Software_Engineer_Resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
           className="hidden md:inline-flex border border-white/20 text-sm px-4 py-1.5 rounded-md hover:bg-white/5 transition text-white"
         >
           Resume
@@ -103,6 +106,20 @@ export default function Navbar() {
                 {link.label}
               </motion.a>
             ))}
+
+            <motion.a
+              href={personalInfo.resumeUrl}
+              download="Shraddha_Wakchaure_Software_Engineer_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setIsOpen(false)}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: navLinks.length * 0.05 }}
+              className="text-xl font-semibold text-indigo-400 hover:text-indigo-300 transition-colors"
+            >
+              Resume
+            </motion.a>
           </motion.div>
         )}
       </AnimatePresence>

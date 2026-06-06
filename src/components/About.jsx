@@ -47,14 +47,17 @@ function AnimatedCounter({ stat }) {
 }
 
 export default function About() {
-  const interests = [
+  const focusAreas = [
     'Software Engineering',
-    'Backend Dev',
-    'AI',
+    'Full Stack Development',
+    'Backend Development',
     'Cybersecurity',
     'System Design',
-    'Product',
+    'Problem Solving',
   ];
+
+  // Split bio into paragraphs for better rendering
+  const bioParagraphs = personalInfo.bio.split('\n\n');
 
   return (
     <div className="py-24 px-6">
@@ -63,35 +66,34 @@ export default function About() {
 
         {/* Two Column Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mt-16">
-          {/* Left Column */}
+          {/* Left Column — Bio & Focus Areas */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            {/* Avatar */}
-            <div className="w-28 h-28 rounded-2xl border border-white/10 flex items-center justify-center bg-gradient-to-br from-indigo-600/20 to-slate-800">
-              <span className="text-white text-2xl font-bold">SW</span>
+            {/* Bio — rendered as separate paragraphs */}
+            <div className="space-y-4">
+              {bioParagraphs.map((para, i) => (
+                <p key={i} className="text-slate-400 text-sm leading-7">
+                  {para}
+                </p>
+              ))}
             </div>
 
-            {/* Bio */}
-            <p className="text-slate-400 text-sm leading-7 mt-6">
-              {personalInfo.bio}
-            </p>
-
-            {/* Interests */}
+            {/* Focus Areas */}
             <p className="text-xs uppercase tracking-widest text-slate-600 mt-8 mb-3 font-mono">
-              Interests
+              Focus Areas
             </p>
             <div className="flex flex-wrap gap-2">
-              {interests.map((interest) => (
-                <Badge key={interest} label={interest} variant="default" />
+              {focusAreas.map((area) => (
+                <Badge key={area} label={area} variant="default" />
               ))}
             </div>
           </motion.div>
 
-          {/* Right Column */}
+          {/* Right Column — Education */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -101,9 +103,9 @@ export default function About() {
             <p className="text-xs uppercase tracking-widest text-slate-600 mb-4 font-mono">
               Education
             </p>
-            <div className="space-y-3">
+             <div className="space-y-3">
               {education.map((edu, i) => (
-                <GlassCard key={i} className="border-l-2 border-indigo-500/40">
+                <GlassCard key={i} hover className="border-l-2 border-indigo-500/40 hover:border-l-indigo-400 group">
                   <p className="text-white font-semibold text-sm">{edu.institution}</p>
                   <p className="text-slate-400 text-xs mt-1">{edu.degree}</p>
                   <div className="flex justify-between mt-3">

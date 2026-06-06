@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Github, Linkedin, Code2, ExternalLink, Download, CheckCircle } from 'lucide-react';
+import { Mail, MapPin, Github, Linkedin, Code2, ExternalLink, Download, CheckCircle, Send } from 'lucide-react';
 import { personalInfo } from '../data/portfolio';
 import SectionHeading from './ui/SectionHeading';
 import GlassCard from './ui/GlassCard';
@@ -12,6 +12,8 @@ export default function Contact() {
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [statusMsg, setStatusMsg] = useState({ type: '', text: '' });
 
   const inputClass =
     'w-full bg-white/[0.04] border border-white/[0.08] rounded-lg px-4 py-3 text-white text-sm placeholder:text-slate-600 outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/20 transition';
@@ -23,9 +25,59 @@ export default function Contact() {
     { icon: ExternalLink, label: 'TryHackMe', href: personalInfo.social.tryhackme },
   ];
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    
+    if (!name.trim() || !email.trim() || !message.trim()) {
+      setStatusMsg({ type: 'error', text: 'Please fill in all required fields (Name, Email, Message).' });
+      return;
+    }
+
+    const key = personalInfo.web3formsKey || (import.meta.env && import.meta.env.VITE_WEB3FORMS_KEY);
+    if (!key) {
+      setStatusMsg({
+        type: 'error',
+        text: 'Access key is missing. Please add your Web3Forms Access Key to portfolio.js (web3formsKey) or VITE_WEB3FORMS_KEY in your environment.'
+      });
+      return;
+    }
+
+    setLoading(true);
+    setStatusMsg({ type: '', text: '' });
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: key,
+          name: name,
+          email: email,
+          subject: subject || `New contact form message from ${name}`,
+          message: message,
+          from_name: `${name} (Portfolio Website)`,
+        })
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setSubmitted(true);
+        setName('');
+        setEmail('');
+        setSubject('');
+        setMessage('');
+      } else {
+        setStatusMsg({ type: 'error', text: data.message || 'Something went wrong. Please try again.' });
+      }
+    } catch (err) {
+      console.error(err);
+      setStatusMsg({ type: 'error', text: 'Failed to send message. Please check your connection.' });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -33,42 +85,62 @@ export default function Contact() {
       <div className="max-w-5xl mx-auto">
         <SectionHeading
           eyebrow="Contact"
-          title="Let's Build Something."
-          subtitle="Open to internships, full-time roles, and interesting projects."
+          title="Let's Work Together."
+          subtitle="Currently seeking Software Engineering, Full Stack Development, Backend Development, and Cybersecurity opportunities."
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12">
-          {/* Left Column */}
+          {/* Left Column — Contact Info (prominent) */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            {/* Contact Info */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 text-sm text-slate-300">
-                <Mail className="text-indigo-400 w-4 h-4" />
-                {personalInfo.email}
-              </div>
-              <div className="flex items-center gap-3 text-sm text-slate-300">
-                <MapPin className="text-indigo-400 w-4 h-4" />
-                {personalInfo.location}
-              </div>
+            {/* Contact Info Cards */}
+            <div className="space-y-3">
+              <GlassCard hover className="border-l-2 border-indigo-500/40 hover:border-l-indigo-400 group">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-indigo-500/10 group-hover:bg-indigo-500/20 flex items-center justify-center transition-colors duration-300">
+                    <Mail className="text-indigo-400 group-hover:text-indigo-300 group-hover:scale-110 transition-all duration-300 w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-mono text-slate-500 uppercase tracking-wider">Email</p>
+                    <a href={`mailto:${personalInfo.email}`} className="text-white text-sm hover:text-indigo-300 transition-colors">
+                      {personalInfo.email}
+                    </a>
+                  </div>
+                </div>
+              </GlassCard>
+
+              <GlassCard hover className="border-l-2 border-indigo-500/40 hover:border-l-indigo-400 group">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-indigo-500/10 group-hover:bg-indigo-500/20 flex items-center justify-center transition-colors duration-300">
+                    <MapPin className="text-indigo-400 group-hover:text-indigo-300 group-hover:scale-110 transition-all duration-300 w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-mono text-slate-500 uppercase tracking-wider">Location</p>
+                    <p className="text-white text-sm">{personalInfo.location}</p>
+                  </div>
+                </div>
+              </GlassCard>
             </div>
 
-            {/* Social Links */}
-            <div className="flex flex-wrap gap-4 mt-8">
+            {/* Social Links — Prominent */}
+            <p className="text-xs uppercase tracking-widest text-slate-600 mt-8 mb-3 font-mono">
+              Connect
+            </p>
+            <div className="grid grid-cols-2 gap-3">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
                   href={social.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-sm text-slate-400 hover:text-white flex items-center gap-2 transition"
+                  className="bg-white/[0.03] border border-white/[0.06] rounded-lg px-4 py-3 flex items-center gap-3 text-slate-300 hover:text-white hover:border-indigo-500/30 hover:bg-indigo-500/5 transition-all duration-200 group"
                 >
-                  <social.icon className="w-4 h-4" />
-                  {social.label}
+                  <social.icon className="w-4 h-4 text-slate-500 group-hover:text-indigo-400 transition-colors" />
+                  <span className="text-sm font-medium">{social.label}</span>
                 </a>
               ))}
             </div>
@@ -77,7 +149,10 @@ export default function Contact() {
             <div className="mt-8">
               <MagneticButton className="inline-block cursor-pointer">
                 <a
-                  href="#"
+                  href={personalInfo.resumeUrl}
+                  download="Shraddha_Wakchaure_Software_Engineer_Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-3 rounded-lg text-sm flex items-center gap-2 transition-colors"
                 >
                   <Download className="w-4 h-4" />
@@ -102,7 +177,7 @@ export default function Contact() {
               </GlassCard>
             ) : (
               <GlassCard>
-                <div className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <label className="text-xs font-mono text-slate-500 uppercase tracking-wider mb-2 block">
                       Name
@@ -113,6 +188,7 @@ export default function Contact() {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       className={inputClass}
+                      required
                     />
                   </div>
 
@@ -126,6 +202,7 @@ export default function Contact() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       className={inputClass}
+                      required
                     />
                   </div>
 
@@ -152,16 +229,38 @@ export default function Contact() {
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                       className={inputClass}
+                      required
                     />
                   </div>
 
-                  <div
-                    onClick={handleSubmit}
-                    className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-lg text-sm font-medium transition-colors mt-2 cursor-pointer text-center"
+                  {statusMsg.text && (
+                    <div className={`p-3 rounded-lg text-xs font-mono border ${
+                      statusMsg.type === 'error'
+                        ? 'bg-rose-500/10 border-rose-500/25 text-rose-300'
+                        : 'bg-emerald-500/10 border-emerald-500/25 text-emerald-300'
+                    }`}>
+                      {statusMsg.text}
+                    </div>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-600/50 disabled:cursor-not-allowed text-white py-3 rounded-lg text-sm font-medium transition-colors mt-2 text-center flex items-center justify-center gap-2 outline-none focus:ring-2 focus:ring-indigo-500/40"
                   >
-                    Send Message
-                  </div>
-                </div>
+                    {loading ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4" />
+                        Send Message
+                      </>
+                    )}
+                  </button>
+                </form>
               </GlassCard>
             )}
           </motion.div>

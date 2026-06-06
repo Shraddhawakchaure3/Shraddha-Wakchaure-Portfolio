@@ -7,7 +7,7 @@ import {
   ChevronDown,
 } from 'lucide-react';
 
-import { personalInfo } from '../data/portfolio';
+import { personalInfo, stats } from '../data/portfolio';
 import { useTypewriter } from '../hooks/useTypewriter';
 import MagneticButton from './ui/MagneticButton';
 
@@ -48,6 +48,11 @@ export default function Hero() {
     },
   ];
 
+  const statBadges = stats.map((s) => {
+    if (s.decimals > 0) return `${s.prefix}${s.value.toFixed(s.decimals)}${s.suffix} ${s.label}`;
+    return `${s.prefix}${s.value}${s.suffix} ${s.label}`;
+  });
+
   return (
     <section
       id="home"
@@ -68,7 +73,7 @@ export default function Hero() {
           className="mb-8"
         >
           <span className="text-xs md:text-sm font-mono tracking-[0.35em] uppercase text-indigo-400">
-            Maharashtra, India
+            {personalInfo.location}
           </span>
         </motion.div>
 
@@ -77,7 +82,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-6xl md:text-8xl lg:text-9xl font-bold text-white tracking-tight leading-[0.9]"
+          className="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[0.9]"
         >
           Shraddha
           <br />
@@ -102,32 +107,37 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="max-w-3xl mx-auto mt-6 text-slate-400 text-base md:text-lg leading-relaxed"
         >
-          Building scalable software solutions across Full Stack
-          Development, AI-powered applications, Cybersecurity,
-          and Blockchain systems. Passionate about creating
-          impactful products that solve real-world business
-          and technology challenges.
+          Building secure applications, scalable software systems, and
+          cybersecurity solutions that solve real-world business and technology
+          challenges.
         </motion.p>
 
-        {/* Quick Skills */}
+        {/* Recruiter Status */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.35 }}
+          className="mt-5"
+        >
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-300 text-xs md:text-sm font-mono">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            Currently seeking Software Engineering, Full Stack, Backend & Cybersecurity opportunities
+          </span>
+        </motion.div>
+
+        {/* Stat Badges */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mt-8 flex flex-wrap justify-center gap-3"
         >
-          {[
-            'Full Stack',
-            'AI Systems',
-            'Cybersecurity',
-            'Blockchain',
-            'Backend Development',
-          ].map((item) => (
+          {statBadges.map((badge) => (
             <span
-              key={item}
-              className="px-3 py-1 rounded-full border border-white/10 bg-white/5 text-slate-300 text-sm"
+              key={badge}
+              className="px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-slate-300 text-xs md:text-sm font-mono backdrop-blur-sm"
             >
-              {item}
+              {badge}
             </span>
           ))}
         </motion.div>
@@ -168,7 +178,7 @@ export default function Hero() {
               target="_blank"
               rel="noreferrer"
               title={social.label}
-              className="text-slate-500 hover:text-white transition-colors duration-300"
+              className="text-slate-500 hover:text-white transition-colors duration-300 hover:scale-110 transform"
             >
               <social.icon className="w-5 h-5" />
             </a>
