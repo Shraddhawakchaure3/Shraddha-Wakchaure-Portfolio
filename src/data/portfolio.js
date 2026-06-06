@@ -25,7 +25,7 @@ I continuously explore new technologies through projects, hackathons, and hands-
   },
   resumeUrl: "/Shraddha_Wakchaure_Software_Engineer_Resume.pdf",
   // Get your free Access Key at https://web3forms.com to receive email submissions
-  web3formsKey: "bbafec1c-a046-4c9e-b934-adf25e0f3af1",
+  web3formsKey: import.meta.env.VITE_WEB3FORMS_KEY,
 };
 
 // ─── Education ─────────────────────────────────────────────────────────────────
