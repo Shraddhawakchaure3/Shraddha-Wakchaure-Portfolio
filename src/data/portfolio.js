@@ -58,42 +58,6 @@ export const stats = [
   { label: "TryHackMe Rank", value: 2, prefix: "Top ", suffix: "% Global", decimals: 0 },
 ];
 
-// ─── Experience Timeline ───────────────────────────────────────────────────────
-export const timeline = [
-  {
-    title: "Software Development Intern (VI 6.0)",
-    organization: "Infosys Springboard",
-    period: "2025",
-    type: "Internship",
-    bullets: [
-      "Developed a full-stack task reminder application using Java, Spring Boot, H2 Database, REST APIs, and Email Services.",
-      "Implemented CRUD operations, scheduling, CSV export, and layered architecture following enterprise development practices.",
-    ],
-    tech: ["Java", "Spring Boot", "H2", "REST APIs"],
-  },
-  {
-    title: "Pragati Cohort 4",
-    organization: "Infosys Springboard",
-    period: "2024",
-    type: "Industry Program",
-    bullets: [
-      "Selected for an industry-led cohort focused on software engineering, enterprise workflows, and professional development.",
-    ],
-    tech: [],
-  },
-
-  {
-    title: "TryHackMe — Top 2% Global",
-    organization: "TryHackMe",
-    period: "Ongoing",
-    type: "Security",
-    bullets: [
-      "Top 2% Global Ranking through practical cybersecurity labs, penetration testing exercises, and security challenges.",
-    ],
-    tech: [],
-  },
-];
-
 // ─── Skill Categories ──────────────────────────────────────────────────────────
 export const skillCategories = [
   {
@@ -154,8 +118,8 @@ export const projects = [
     featured: false,
     description: "Full-stack cybersecurity CTF platform simulating real-world cyber investigation scenarios. Modules cover web security, reconnaissance, cryptography, threat intelligence, and log analysis.",
     tech: ["React.js", "Node.js", "MongoDB", "Vercel"],
-    github: "#",
-    demo: null,
+    github: "https://github.com/hiteshpatil2005/Operation-Silent-Breach",
+    demo: "https://operation-silent-breach.vercel.app",
   },
   {
     id: "03",
@@ -191,6 +155,45 @@ export const projects = [
     demo: null,
   },
 ];
+
+// ─── Experience Timeline ───────────────────────────────────────────────────────
+export const timeline = [
+  {
+    title: "Software Development Intern (VI 6.0)",
+    organization: "Infosys Springboard",
+    period: "2025",
+    type: "Internship",
+    bullets: [
+      "Developed a full-stack task reminder application using Java, Spring Boot, H2 Database, REST APIs, and Email Services.",
+      "Implemented CRUD operations, scheduling, CSV export, and layered architecture following enterprise development practices.",
+    ],
+    tech: ["Java", "Spring Boot", "H2", "REST APIs"],
+  },
+  {
+    title: "Pragati Cohort 4",
+    organization: "Infosys Springboard",
+    period: "2024",
+    type: "Industry Program",
+    bullets: [
+      "Selected for an industry-led cohort focused on software engineering, enterprise workflows, and professional development.",
+    ],
+    tech: [],
+  },
+
+  {
+    title: "TryHackMe — Top 2% Global",
+    organization: "TryHackMe",
+    period: "Ongoing",
+    type: "Security",
+    bullets: [
+      "Top 2% Global Ranking through practical cybersecurity labs, penetration testing exercises, and security challenges.",
+    ],
+    tech: [],
+  },
+];
+
+
+
 
 // ─── Achievements ──────────────────────────────────────────────────────────────
 export const achievements = [

@@ -15,9 +15,9 @@ export default function App() {
       <main>
         <section id="home">         <Hero />          </section>
         <section id="about">        <About />         </section>
-        <section id="experience">   <Experience />    </section>
-        <section id="projects">     <Projects />      </section>
         <section id="skills">       <Skills />        </section>
+        <section id="projects">     <Projects />      </section>
+        <section id="experience">   <Experience />    </section>
         <section id="achievements"> <Achievements />  </section>
         <section id="contact">      <Contact />       </section>
       </main>
