@@ -14,7 +14,7 @@ export function useActiveSection() {
           }
         });
       },
-      { threshold: 0.4 }
+      { threshold: 0.15 }
     );
 
     const elements = sectionIds

@@ -16,7 +16,7 @@ export default function Contact() {
   const [statusMsg, setStatusMsg] = useState({ type: '', text: '' });
 
   const inputClass =
-    'w-full bg-white/[0.04] border border-white/[0.08] rounded-lg px-4 py-3 text-white text-sm placeholder:text-slate-600 outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/20 transition';
+    'w-full bg-white/[0.04] border border-white/[0.08] rounded-lg px-4 py-3 text-white text-sm placeholder:text-slate-600 outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/20 transition min-h-[48px]';
 
   const socialLinks = [
     { icon: Github, label: 'GitHub', href: personalInfo.social.github },
@@ -27,7 +27,7 @@ export default function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!name.trim() || !email.trim() || !message.trim()) {
       setStatusMsg({ type: 'error', text: 'Please fill in all required fields (Name, Email, Message).' });
       return;
@@ -81,7 +81,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="py-24 px-6">
+    <div className="py-16 sm:py-24 px-4 sm:px-6">
       <div className="max-w-5xl mx-auto">
         <SectionHeading
           eyebrow="Contact"
@@ -90,7 +90,7 @@ export default function Contact() {
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12">
-          {/* Left Column — Contact Info (prominent) */}
+          {/* Left Column â€” Contact Info (prominent) */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -126,7 +126,7 @@ export default function Contact() {
               </GlassCard>
             </div>
 
-            {/* Social Links — Prominent */}
+            {/* Social Links â€” Prominent */}
             <p className="text-xs uppercase tracking-widest text-slate-600 mt-8 mb-3 font-mono">
               Connect
             </p>
@@ -149,11 +149,12 @@ export default function Contact() {
             <div className="mt-8">
               <MagneticButton className="inline-block cursor-pointer">
                 <a
-                  href={personalInfo.resumeUrl}
-                  download="Shraddha_Wakchaure_Software_Engineer_Resume.pdf"
+                  href="/Shraddha_Wakchaure_Resume.pdf"
+                  download="Shraddha_Wakchaure_Resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-3 rounded-lg text-sm flex items-center gap-2 transition-colors"
+                  className="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-3 rounded-lg text-sm flex items-center gap-2 transition-colors min-h-[48px]"
+                  aria-label="Download resume PDF"
                 >
                   <Download className="w-4 h-4" />
                   Download Resume
@@ -162,7 +163,7 @@ export default function Contact() {
             </div>
           </motion.div>
 
-          {/* Right Column — Form */}
+          {/* Right Column â€” Form */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -234,11 +235,10 @@ export default function Contact() {
                   </div>
 
                   {statusMsg.text && (
-                    <div className={`p-3 rounded-lg text-xs font-mono border ${
-                      statusMsg.type === 'error'
+                    <div className={`p-3 rounded-lg text-xs font-mono border ${statusMsg.type === 'error'
                         ? 'bg-rose-500/10 border-rose-500/25 text-rose-300'
                         : 'bg-emerald-500/10 border-emerald-500/25 text-emerald-300'
-                    }`}>
+                      }`}>
                       {statusMsg.text}
                     </div>
                   )}
@@ -246,7 +246,7 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-600/50 disabled:cursor-not-allowed text-white py-3 rounded-lg text-sm font-medium transition-colors mt-2 text-center flex items-center justify-center gap-2 outline-none focus:ring-2 focus:ring-indigo-500/40"
+                    className="w-full bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-600/50 disabled:cursor-not-allowed text-white py-3 rounded-lg text-sm font-medium transition-colors mt-2 text-center flex items-center justify-center gap-2 outline-none focus:ring-2 focus:ring-indigo-500/40 min-h-[48px]"
                   >
                     {loading ? (
                       <>

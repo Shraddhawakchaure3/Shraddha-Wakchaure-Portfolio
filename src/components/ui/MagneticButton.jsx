@@ -21,10 +21,13 @@ export default function MagneticButton({ children, className, onClick }) {
     <motion.div
       ref={ref}
       style={{ x, y }}
-      className={className}
+      className={`cursor-pointer ${className || ''}`}
       onClick={onClick}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={onClick ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(); } } : undefined}
     >
       {children}
     </motion.div>

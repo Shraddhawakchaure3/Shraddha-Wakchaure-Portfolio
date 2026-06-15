@@ -60,7 +60,7 @@ export default function About() {
   const bioParagraphs = personalInfo.bio.split('\n\n');
 
   return (
-    <div className="py-24 px-6">
+    <div className="py-16 sm:py-24 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         <SectionHeading eyebrow="About Me" title="Code. Security. Impact." />
 

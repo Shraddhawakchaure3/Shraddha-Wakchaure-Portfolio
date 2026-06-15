@@ -19,9 +19,9 @@ const item = {
 
 export default function Achievements() {
   return (
-    <div className="py-24 px-6">
+    <div className="py-16 sm:py-24 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
-        <SectionHeading eyebrow="Achievements" title="Recognition & Certifications" />
+        <SectionHeading eyebrow="Achievements" title="Achievements & Certifications" />
 
         <motion.div
           variants={container}

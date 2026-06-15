@@ -28,11 +28,6 @@
   padding: 0;
 }
 
-/* Smooth Scroll */
-html {
-  scroll-behavior: smooth;
-}
-
 /* Body */
 body {
   background-color: var(--bg-primary);
@@ -41,6 +36,19 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+/* Prevent horizontal scroll on html */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* Focus visible styles for accessibility */
+*:focus-visible {
+  outline: 2px solid rgba(79, 70, 229, 0.6);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 /* Dot Grid Background (use as className="dot-grid") */
